@@ -1,63 +1,39 @@
-function processOrder(order) {
-    // Validate order
-    if (!order) {
-        console.log("Invalid order.");
-        return;
-    }
-    if (!order.customer) {
-        console.log("Missing customer information.");
-        return;
-    }
-    if (!order.items || order.items.length === 0) {
-        console.log("No items in the order.");
-        return;
-    }
+const FREE_SHIPPING_THRESHOLD = 100;
+const SHIPPING_COST = 10;
 
-    // Calculate total price
-    let totalPrice = 0;
-    for (let i = 0; i < order.items.length; i++) {
-        let item = order.items[i];
-        let itemPrice = item.price * item.quantity;
-        if (item.discount) {
-            itemPrice -= (itemPrice * item.discount) / 100;
-        }
-        totalPrice += itemPrice;
-    }
-
-    // Apply shipping
-    let shippingCost = 0;
-    if (totalPrice > 100) {
-        shippingCost = 0;
-    } else {
-        shippingCost = 10;
-    }
-    totalPrice += shippingCost;
-
-    // Send notification
-    console.log(`Order processed for ${order.customer.name}`);
-    console.log(`Total price: $${totalPrice}`);
-    console.log(`Shipping cost: $${shippingCost}`);
+function validateOrder(order) {
+  if (!order) {
+    return "Invalid order.";
+  }
+  if (!order.customer) {
+    return "Missing customer information.";
+  }
+  if (!order.items || order.items.length === 0) {
+    return "No items in the order.";
+  }
+  return null;
 }
 
-function createUser(firstName, lastName, age, addressLine1, addressLine2, city, state, postalCode, country, email, phoneNumber) {
-  // Create a new user object
-  let user = {
-    firstName: firstName,
-    lastName: lastName,
-    age: age,
-    address: {
-      line1: addressLine1,
-      line2: addressLine2,
-      city: city,
-      state: state,
-      postalCode: postalCode,
-      country: country
-    },
-    contactInfo: {
-      email: email,
-      phoneNumber: phoneNumber
-    }
-  };
+function calculateTotalPrice(items) {
+  return items.reduce((total, item) => total + item.price * item.quantity, 0);
+}
 
-  return user;
+function applyShipping(totalPrice) {
+  return totalPrice > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+}
+
+function processOrder(order) {
+  const errorMessage = validateOrder(order);
+  if (errorMessage) {
+    console.log(errorMessage);
+    return;
+  }
+
+  let totalPrice = calculateTotalPrice(order.items);
+  const shippingCost = applyShipping(totalPrice);
+  totalPrice += shippingCost;
+
+  console.log(`Order processed for ${order.customer.name}`);
+  console.log(`Total price: $${totalPrice.toFixed(2)}`);
+  console.log(`Shipping cost: $${shippingCost}`);
 }
