@@ -38,3 +38,26 @@ function processOrder(order) {
     console.log(`Total price: $${totalPrice}`);
     console.log(`Shipping cost: $${shippingCost}`);
 }
+
+function createUser(firstName, lastName, age, addressLine1, addressLine2, city, state, postalCode, country, email, phoneNumber) {
+  // Create a new user object
+  let user = {
+    firstName: firstName,
+    lastName: lastName,
+    age: age,
+    address: {
+      line1: addressLine1,
+      line2: addressLine2,
+      city: city,
+      state: state,
+      postalCode: postalCode,
+      country: country
+    },
+    contactInfo: {
+      email: email,
+      phoneNumber: phoneNumber
+    }
+  };
+
+  return user;
+}
