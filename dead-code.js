@@ -9,7 +9,6 @@ function calculateDiscount(price, isMember) {
     discount += 0.05; // Extra 5% discount for members
   }
 
-  // Dead code: this condition will never be true
   if (price < 0) {
     discount = 0.5; // 50% discount for negative prices
   }
