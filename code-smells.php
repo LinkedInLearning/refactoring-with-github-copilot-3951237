@@ -61,6 +61,44 @@ class Author
   }
 
   // Other author-related methods
+
+}
+
+
+interface AuthorDisplayTexturizerInterface
+{
+  public function texturizeAuthor(Author $author);
+}
+
+class AuthorStringDisplayTexturizer implements AuthorDisplayTexturizerInterface
+{
+  public function texturizeAuthor(Author $author)
+  {
+    return "Author: " . $author->name . " (" . $author->email . ") - " . $author->bio;
+  }
+}
+
+class LinkedAuthorDisplayTexturizer extends AuthorStringDisplayTexturizer
+{
+  public function texturizeAuthor(Author $author)
+  {
+    return "<a href='mailto:" . $author->email . "'>" . parent::texturizeAuthor( $author ) . "</a>";
+  }
+}
+
+class AuthorDisplay
+{
+  private AuthorDisplayTexturizerInterface $texturizer;
+
+  public function __construct(AuthorDisplayTexturizerInterface $texturizer)
+  {
+    $this->texturizer = $texturizer;
+  }
+
+  public function displayAuthorDetails(Author $author)
+  {
+    return $this->texturizer->texturizeAuthor($author);
+  }
 }
 
 class BlogPost
@@ -79,7 +117,8 @@ class BlogPost
   // Method that suffers from Feature Envy
   public function getAuthorDetails()
   {
-    // BlogPost is too interested in Author's properties
-    return "Author: " . $this->author->name . " (" . $this->author->email . ") - " . $this->author->bio;
+    $texturizer = new AuthorStringDisplayTexturizer();
+    $authorDisplay = new AuthorDisplay($texturizer);
+    return $authorDisplay->displayAuthorDetails($this->author);
   }
 }
