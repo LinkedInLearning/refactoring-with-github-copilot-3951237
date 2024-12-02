@@ -25,3 +25,7 @@ function calculateDiscount(customerType, purchaseAmount, isHoliday) {
 
   return purchaseAmount * (1 - discount);
 }
+
+if ( user.isLoggedIn && user.isAdmin ) {
+  // Admin-only functionality
+}
