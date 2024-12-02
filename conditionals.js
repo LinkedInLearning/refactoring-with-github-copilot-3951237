@@ -1,27 +1,21 @@
 function calculateDiscount(customerType, purchaseAmount, isHoliday) {
-  let discount = 0;
+  const discountRates = {
+    regular: {
+      high: isHoliday ? 0.15 : 0.1,
+      low: isHoliday ? 0.05 : 0
+    },
+    premium: {
+      high: isHoliday ? 0.2 : 0.15,
+      low: isHoliday ? 0.1 : 0.05
+    },
+    vip: {
+      high: isHoliday ? 0.3 : 0.25,
+      low: isHoliday ? 0.3 : 0.25
+    }
+  };
 
-  if (customerType === "regular") {
-    if (purchaseAmount > 100) {
-      if (isHoliday) {
-        discount = 0.15; // 15% for regular customers during holidays
-      } else {
-        discount = 0.1; // 10% for regular customers
-      }
-    } else {
-      if (isHoliday) {
-        discount = 0.05; // 5% for small purchases during holidays
-      }
-    }
-  } else if (customerType === "premium") {
-    if (purchaseAmount > 100) {
-      discount = isHoliday ? 0.2 : 0.15; // 20% during holidays, 15% otherwise
-    } else {
-      discount = isHoliday ? 0.1 : 0.05; // Smaller discounts for small purchases
-    }
-  } else if (customerType === "vip") {
-    discount = isHoliday ? 0.3 : 0.25; // Flat discount for VIP customers
-  }
+  const rate = purchaseAmount > 100 ? 'high' : 'low';
+  const discount = discountRates[customerType][rate] || 0;
 
   return purchaseAmount * (1 - discount);
 }
