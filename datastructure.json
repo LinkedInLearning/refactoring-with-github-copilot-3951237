@@ -2,45 +2,45 @@ const inventory = [
   {
     id: 1,
     name: "Laptop",
-    details: {
+    stock: 5,
+    categories: [
+      "electronics"
+    ],
+    pricing: {
       price: 1200,
-      stock: 5,
-      categories: "electronics",
       discount: null
     },
     tags: [
-      "electronics",
       "computers"
     ]
   },
   {
     id: 2,
     name: "T-Shirt",
-    details: {
-      price: 20,
-      stock: 50,
-      categories: [
-        "clothing",
-        "men"
-      ],
-      discount: "10%"
-    },
-    tags: [
+    stock: 50,
+    categories: [
       "clothing",
       "men"
-    ]
+    ],
+    pricing: {
+      price: 20,
+      discount: "10%"
+    },
+    tags: []
   },
   {
     id: 3,
     name: "Blender",
-    details: {
+    stock: 8,
+    categories: [
+      "home appliances"
+    ],
+    pricing: {
       price: 100,
-      stock: 8,
-      categories: "home appliances"
+      discount: null
     },
     tags: [
-      "kitchen",
-      "home appliances"
+      "kitchen"
     ]
   }
 ];
