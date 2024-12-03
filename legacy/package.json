@@ -1,0 +1,23 @@
+{
+  "name": "example-project",
+  "version": "1.0.0",
+  "description": "An example project with compatible dependencies",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "webpack": "^5.64.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
